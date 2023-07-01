@@ -1,0 +1,30 @@
+body{
+    background-color: rgb(48, 87, 177);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#title{
+    color: white;
+    font-size: 100px;
+}
+
+.playerBoard, .computerBoard{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 5px;
+}
+
+.cell {
+    background-color: lightgray;
+    border: 1px solid gray;
+    padding: 10px;
+  }
+
+.boards{
+    display: flex;
+    margin-top: 4rem;
+    gap: 4rem;
+}
