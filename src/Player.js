@@ -5,11 +5,8 @@ export default class Player{
     constructor(){
     }
 
-    playTurn(xCoord, yCoord, gameboard){
-        gameboard.recieveAttack(xCoord,yCoord);
-    }
     randomTurn(gameboard){
-        let coords = randomCoordinates();
+        let coords = this.randomCoordinates();
         gameboard.recieveAttack(coords[0],coords[1]);
     }
     randomCoordinates(){

@@ -1,3 +1,5 @@
+import Ship from "./ship";
+
 export default class Gameboard {
   boardSize = 10;
   constructor() {
@@ -47,12 +49,18 @@ export default class Gameboard {
   }
 
   recieveAttack(xCoord, yCoord){
-    if(this.board[xCoord][yCoord]!==0){
+    if(this.board[xCoord][yCoord] instanceof Ship){
         this.board[xCoord][yCoord].hits++;
+        this.board[xCoord][yCoord].isSunk()
+        this.board[xCoord][yCoord]="hit";
+        if(this.allShipsSunk()){
+          endGame();
+        }
     }
-    else{
+    else if(this.board[xCoord][yCoord]===0){
         this.board[xCoord][yCoord]="missedShot"
     }
+    
   }
 
   allShipsSunk(){
