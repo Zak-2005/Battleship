@@ -67,7 +67,13 @@ export function generateUserGrid(userPhysicalBoard, userGameboard) {
 
         highlightPlacedShip(userShips[shipIndex], row, col);
         shipIndex++;
-        if(shipIndex>=userShips.length)userGameboard.generateDirections();
+        if (shipIndex >= userShips.length) {
+          userGameboard.generateDirections();
+          const rotateButton = document.querySelector(".rotateShip");
+          document
+            .querySelector("body")
+            .removeChild(rotateButton);
+        }
       });
 
       userPhysicalBoard.appendChild(cell);
