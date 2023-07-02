@@ -18,12 +18,15 @@ export default class Gameboard {
   }
 
   placeShip(ship, row, column) {
-    if (this.PlaceShipValid(ship, row, column) === false);
+    if (this.PlaceShipValid(ship, row, column) === false) return false;
     this.ships.push(ship);
-    console.log(this.ships)
     if (ship.direction === "vertical") {
       for (let i = 0; i < ship.length; i++) {
         this.board[i + row][column] = ship;
+        let cell = document.querySelector(`.cell-${i + row}-${column}`);
+        if (cell) {
+          cell.style.backgroundColor = "black";
+        }
       }
     } else {
       for (let j = 0; j < ship.length; j++) {
@@ -32,36 +35,85 @@ export default class Gameboard {
     }
   }
 
-  placeRandomShips() {
+  userShips() {
     const Carrier = new Ship(5);
-    
+
     const Battleship = new Ship(4);
-    
+
     const Cruiser = new Ship(3);
 
     const Submarine = new Ship(3);
 
     const Destroyer = new Ship(2);
 
-    this.placeShip(Carrier, 0, 0);
-    this.placeShip(Battleship, 0, 1);
-    this.placeShip(Cruiser, 0, 2);
-    this.placeShip(Submarine, 0, 3);
-    this.placeShip(Destroyer, 0, 4);
+    return [Carrier, Battleship, Cruiser, Submarine, Destroyer];
+  }
+
+  placeRandomShips() {
+    const Carrier = new Ship(5);
+    this.randomDirection(Carrier);
+    const carrierCoords = this.randomCoordinates(Carrier);
+    this.placeShip(Carrier, carrierCoords[0], carrierCoords[1]);
+
+    const Battleship = new Ship(4);
+    this.randomDirection(Battleship);
+    const battleShipCoords = this.randomCoordinates(Battleship);
+    this.placeShip(Battleship, battleShipCoords[0], battleShipCoords[1]);
+
+    const Cruiser = new Ship(3);
+    this.randomDirection(Cruiser);
+    const cruiserCoords = this.randomCoordinates(Cruiser);
+    this.placeShip(Cruiser, cruiserCoords[0], cruiserCoords[1]);
+
+    const Submarine = new Ship(3);
+    this.randomDirection(Submarine);
+    const submarineCoords = this.randomCoordinates(Submarine);
+    this.placeShip(Submarine, submarineCoords[0], submarineCoords[1]);
+
+    const Destroyer = new Ship(2);
+    this.randomDirection(Destroyer);
+    const destroyerCoords = this.randomCoordinates(Destroyer);
+    this.placeShip(Destroyer, destroyerCoords[0], destroyerCoords[1]);
+  }
+
+  randomDirection(ship) {
+    const direction = Math.floor(Math.random() * 2);
+    if (direction === 0) return;
+    else {
+      ship.direction = "horizontal";
+      return;
+    }
+  }
+
+  randomCoordinates(ship) {
+    let validPositions = [];
+
+    for (let row = 0; row < this.board.length; row++) {
+      for (let col = 0; col < this.board[row].length; col++) {
+        if (this.PlaceShipValid(ship, row, col)) {
+          validPositions.push([row, col]);
+        }
+      }
+    }
+    const randomIndex = Math.floor(Math.random() * validPositions.length);
+    const [row, col] = validPositions[randomIndex];
+
+    return [row, col];
   }
 
   PlaceShipValid(ship, row, column) {
     if (ship.direction === "vertical") {
       for (let i = 0; i < ship.length; i++) {
-        if (i + row + 1 >= this.board.length) return false;
-        if (this.board[i + row + 1][column] !== 0) return false;
+        if (i + row >= this.board.length) return false;
+        if (this.board[i + row][column] !== 0) return false;
       }
     } else {
       for (let j = 0; j < ship.length; j++) {
-        if (i + column + 1 >= this.board[i].length) return false;
-        if (this.board[row][j + column + 1] !== 0) return false;
+        if (j + column >= this.board[row].length) return false;
+        if (this.board[row][j + column] !== 0) return false;
       }
     }
+    return true;
   }
 
   receiveAttack(row, col, cell) {
@@ -69,19 +121,20 @@ export default class Gameboard {
       this.board[row][col].hits++;
       this.board[row][col].isSunk();
       cell.style.backgroundColor = "red";
-      console.log(this.board[row][col])
+      console.log(this.board[row][col]);
       this.board[row][col] = "hit";
       if (this.allShipsSunk()) {
         endGame();
       }
     } else if (this.board[row][col] === 0) {
       this.board[row][col] = "missedShot";
-      cell.style.backgroundColor = "grey";
-    }
-    else{
+      if (cell) {
+        cell.style.backgroundColor = "grey";
+      }
+    } else {
       return false;
     }
-    return true
+    return true;
   }
 
   allShipsSunk() {
@@ -89,5 +142,10 @@ export default class Gameboard {
       if (this.ships[i].sunk === false) return false;
     }
     return true;
+  }
+
+  generateDirections() {
+    const pageDirections = document.querySelector("#title");
+    pageDirections.textContent = "Battle Ship";
   }
 }
