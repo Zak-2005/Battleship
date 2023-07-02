@@ -121,7 +121,6 @@ export default class Gameboard {
       this.board[row][col].hits++;
       this.board[row][col].isSunk();
       cell.style.backgroundColor = "red";
-      console.log(this.board[row][col]);
       this.board[row][col] = "hit";
       if (this.allShipsSunk()) {
         endGame();
