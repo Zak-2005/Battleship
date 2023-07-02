@@ -1,6 +1,7 @@
 import Player from "./Player"
-test("computer generates random coordinates", ()=>{
+import Gameboard from "./Gameboard";
+test.only("computer generates valid random coordinates for attack", ()=>{
     let computer = new Player();
-    expect(computer.randomCoordinates()[0]).toBeLessThanOrEqual(9)
-    expect(computer.randomCoordinates()[1]).toBeLessThanOrEqual(9)
+    let gameboard = new Gameboard();
+    expect(computer.generateValidRandomAttackCoordinates(gameboard).length).toBe(100)
 })

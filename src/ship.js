@@ -13,4 +13,12 @@ export default class Ship {
       this.sunk = true;
     }
   }
+  changeDirection(){
+    if(this.direction==="vertical"){
+      this.direction = "horizontal"
+    }
+    else{
+      this.direction="vertical"
+    }
+  }
 }

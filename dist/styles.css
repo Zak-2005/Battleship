@@ -11,10 +11,25 @@ body{
     font-size: 100px;
 }
 
+.rotateShip{
+    font-size: 4rem;
+}
+
+.userSide, .computerSide{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    height: 500px;
+    width: 500px;
+}
+
 .playerBoard, .computerBoard{
+    height: 300px;
+    width: 300px;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(10, 2fr);
+    grid-template-rows: repeat(10, 2fr);
     gap: 5px;
 }
 
@@ -26,12 +41,22 @@ body{
 
 .boards{
     display: flex;
+    justify-content: center;
     margin-top: 4rem;
     gap: 4rem;
+}
+
+.boardTitle{
+    font-size: 3rem;
+    color: white;
 }
 
 button{
     font-size: 100px;
     border-radius: 10px;
     background-color: white;
+}
+
+#placed-ship{
+    background-color: black;
 }

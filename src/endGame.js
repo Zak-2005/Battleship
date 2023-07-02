@@ -4,17 +4,16 @@ export default function endGame(){
     title.textContent="You Win!"
     const body = document.querySelector('body')
     const boards = document.querySelector(".boards")
-    const userBoard = document.querySelector(".playerBoard")
-    const compBoard = document.querySelector(".computerBoard")
-    boards.removeChild(userBoard)
-    boards.removeChild(compBoard)
+    const rotateShipButton = document.querySelector(".rotateShip");
+
+    body.removeChild(rotateShipButton);
+    body.removeChild(boards)
     const playAgain = document.createElement("button");
     playAgain.textContent= "Play Again?"
-    body.appendChild(playAgain)
     playAgain.addEventListener("click", ()=>{
         body.removeChild(playAgain)
-        title.textContent="Battle Ship"
+        title.textContent="Place Your Ships"
        gameLoop();
     })
-    
+    body.appendChild(playAgain)
 }
