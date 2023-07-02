@@ -7,7 +7,8 @@ beforeEach(()=>{
     ship1=new Ship(4);
     gameboard = new Gameboard();
 })
-test("Place ships at specific coordinates", ()=>{
+
+test.only("Place ships at specific coordinates", ()=>{
     gameboard.placeShip(ship1, 0, 0);
     expect(gameboard.board[0][0]).not.toBe(0)
     expect(gameboard.board[1][0]).not.toBe(0)
