@@ -9,6 +9,7 @@ body{
 #title{
     color: white;
     font-size: 100px;
+    font-weight: bold;
 }
 
 .rotateShip{
